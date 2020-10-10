@@ -1,0 +1,19 @@
+Package: pcfacespace
+Type: Package
+Title: Data and functions for working weith parametric face drawings of Day and Davidenko (2019).
+Version: 0.1.0
+Author: Bradley Buchsbaum
+Maintainer: Bradley Buchsbaum <brad.buchsbaum@gmail.com>
+Description: A novel face space model--parametric face drawings (or PFDs)--that is is used to generate schematic, 
+    though realistic, parameterized line drawings of faces based on the statistical distribution of human facial features.
+    The model is based on a demographically diverse sample of 400 faces (200 female, 200 male; 100 East Asian/Pacific Islander, 
+    100 Latinx/Hispanic, 100 black/African-American, and 100 white/Caucasian) compiled from several face databases.
+    This is port from the original Matlab code hosted at: https://osf.io/6uds5/
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 2.10)
+Imports:
+  grid
+RoxygenNote: 7.1.0
