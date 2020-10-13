@@ -6,7 +6,7 @@ while (TRUE) {
   cf2 <- rnorm(166)
   cf2 <- scale((.4*cf1 + .6*cf2))[,1]
   cr <- cor(cf1,cf2)
-  print(cr)
+  #print(cr)
   if (cr > .5) {
     break
   }

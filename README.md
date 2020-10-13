@@ -42,13 +42,6 @@ multiplot(list(f1,f2,f3), nrow=1, ncol=3)
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
-    #> [1] 1
-    #> [1] 1
-    #> [1] 2
-    #> [1] 1
-    #> [1] 3
-    #> [1] 1
-
 ### Push two faces away from each other in PC-space using a “face difference”
 
 ``` r
@@ -74,15 +67,6 @@ multiplot(list(pfd_splines(gen_face(coef=face1)),pfd_splines(gen_face(coef=face2
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-    #> [1] 1
-    #> [1] 1
-    #> [1] 2
-    #> [1] 1
-    #> [1] 1
-    #> [1] 2
-    #> [1] 2
-    #> [1] 2
-
 ``` r
 
 ## push the first face away from the second face by .5 difference units.
@@ -97,15 +81,6 @@ multiplot(list(pfd_splines(gen_face(coef=face1)),pfd_splines(gen_face(coef=face2
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-    #> [1] 1
-    #> [1] 1
-    #> [1] 2
-    #> [1] 1
-    #> [1] 1
-    #> [1] 2
-    #> [1] 2
-    #> [1] 2
-
 ``` r
 
 ## push the first face away from the second face by .3 difference units.
@@ -119,12 +94,3 @@ multiplot(list(pfd_splines(gen_face(coef=face1)),pfd_splines(gen_face(coef=face2
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
-
-    #> [1] 1
-    #> [1] 1
-    #> [1] 2
-    #> [1] 1
-    #> [1] 1
-    #> [1] 2
-    #> [1] 2
-    #> [1] 2
