@@ -7,8 +7,8 @@ statistical distribution of human facial feature. Principal components
 analysis applied to a set of 400 landmarks manually placed on a
 demographically diverse sample yields a “face space” that can be used
 for face modeling applications. This R package is a partial port of the
-Matlab code of Day and Davidenko hosted here at the Open Science
-Framework: <https://osf.io/6uds5/>
+Matlab code of Day and Davidenko hosted at the Open Science Framework:
+<https://osf.io/6uds5/>
 
 Below we demonstrate some of the basic features of the R package.
 
@@ -94,3 +94,9 @@ multiplot(list(pfd_splines(gen_face(coef=face1)),pfd_splines(gen_face(coef=face2
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+## References
+
+Day, J., & Davidenko, N. (2019). Parametric face drawings: A
+demographically diverse and customizable face space model. Journal of
+vision, 19(11), 7-7.
