@@ -29,11 +29,19 @@ pfd_pc_to_xy <- function(x) {
 #'
 #' @param the number of leading principal components to fix at zero.
 #' @return an 85 x 2 matrix of face coordinates
-gen_face <- function(fixed_pcs=0) {
-  if (fixed_pcs == 0) {
-    pfd_pc_to_xy(rnorm(166))
+#' @export
+#' @importFrom assertthat assert_that
+gen_face <- function(coef=NULL, fixed_pcs=0) {
+  if (is.null(coef)) {
+    coef <- rnorm(166)
   } else {
-    rn <- rnorm(166)
+    assert_that(length(coef) == 166)
+  }
+
+  if (fixed_pcs == 0) {
+    pfd_pc_to_xy(coef)
+  } else {
+    rn <- coef
     rn[1:fixed_pcs] <- 0
     pfd_pc_to_xy(rn)
   }
@@ -45,8 +53,9 @@ gen_face <- function(fixed_pcs=0) {
 #'
 #' @param the number of leading principal components to fix at zero.
 #' @return an instance of class \code{face_spline}
-gen_face_spline <- function(fixed_pcs=0) {
-  ff <- gen_face()
+#' @export
+gen_face_spline <- function(coef=NULL, fixed_pcs=0) {
+  ff <- gen_face(coef)
   pfd_splines(ff)
 }
 

@@ -1,4 +1,40 @@
 
+#' multiplot
+#'
+#' Plot multiple faces in a grid layout
+#'
+#'
+#' @param x a list of \code{face_spline} objects
+#' @param nrow the number of rows in plot layout
+#' @param ncol the number of columns in plot layout
+#' @import grid
+#' @export
+multiplot <- function(x, nrow, ncol) {
+  assertthat::assert_that(is.list(x))
+  assertthat::assert_that(all(sapply(x, function(obj) inherits(obj, "face_spline"))))
+  assertthat::assert_that(length(x) >= 1)
+
+  pushViewport(viewport(layout=grid.layout(nrow, ncol)))
+
+  rnum <- 1
+  cnum <- 1
+  for (i in 1:length(x)) {
+    cnum <- ((i-1) %% ncol) + 1
+
+    vp <- viewport(layout.pos.col=cnum, layout.pos.row=rnum,
+                   width=unit(1, "npc"), height=unit(1, "npc"),
+                   xscale = c(-2, 4), yscale=c(-4.5,3.66), default.units="native")
+    pushViewport(vp)
+    grid.draw(x[[i]]$grob)
+    if (cnum == ncol) {
+      rnum <- rnum + 1
+    }
+
+    popViewport()
+  }
+
+}
+
 
 #' @export
 plot.face_spline <- function(x, y, ...) {

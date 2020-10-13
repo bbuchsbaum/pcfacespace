@@ -4,7 +4,7 @@
 \alias{gen_face_spline}
 \title{make a random face from parametric face space}
 \usage{
-gen_face_spline(fixed_pcs = 0)
+gen_face_spline(coef = NULL, fixed_pcs = 0)
 }
 \arguments{
 \item{the}{number of leading principal components to fix at zero.}

@@ -4,7 +4,7 @@
 \alias{gen_face}
 \title{generate a random face coordinate matrix from the pfd face space}
 \usage{
-gen_face(fixed_pcs = 0)
+gen_face(coef = NULL, fixed_pcs = 0)
 }
 \arguments{
 \item{the}{number of leading principal components to fix at zero.}
