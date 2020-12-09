@@ -25,16 +25,22 @@ plot(pfd_splines(face))
 
 ```{r}
 
+normcoef <- function(x, type="F") {
+  x/norm(as.matrix(x), "F")
+}
+
+
+distinctiveness <- 10
 
 ## generate 166 normally distributed princpal component coefficients for face 1
-face1 <- rnorm(166)
+face1 <- normcoef(rnorm(166))
 ## generate 166 normally distributed princpal component coefficients for face 2
-face2 <- rnorm(166)
+face2 <- normcoef(rnorm(166))
 
-## create a "spline" represenation of face1, face2, and the average of face1 and face2 (the morph).
-f1 <- pfd_splines(gen_face(coef=face1))
-f2 <- pfd_splines(gen_face(coef=face2))
-f3 <- pfd_splines(gen_face(coef=scale((face1+face2)/2)[,1]))
+## create a "spline" representation of face1, face2, and the average of face1 and face2 (the morph).
+f1 <- pfd_splines(gen_face(coef=face1*distinctiveness))
+f2 <- pfd_splines(gen_face(coef=face2*distinctiveness))
+f3 <- pfd_splines(gen_face(coef=normcoef(face1+face2)*distinctiveness))
 
 multiplot(list(f1,f2,f3), nrow=1, ncol=3)
 
@@ -46,20 +52,21 @@ multiplot(list(f1,f2,f3), nrow=1, ncol=3)
 
 
 ## generate 166 normally distributed princpal component coefficients for face 1
-face1 <- rnorm(166)
+face1 <- normcoef(rnorm(166)) 
 ## generate 166 normally distributed princpal component coefficients for face 2
-face2 <- rnorm(166)
+face2 <- normcoef(rnorm(166))
 
 ## create a "face difference" vector
-delta <- scale(face1 - face2)[,1]
+delta <- face1 - face2
 
 ## push the first face away from the second face by 1 difference units.
-delta_face1 = pcfacespace::gen_face(delta + face1)
+delta_face1 = pcfacespace::gen_face(1.2*(distinctiveness) * normcoef(delta+face1))
 
 ## push the second face away from the first face by 1 difference units (notice the sign reversal).
-delta_face2 = pcfacespace::gen_face(-delta + face2)
+delta_face2 = pcfacespace::gen_face(1.2*(distinctiveness) * normcoef(-delta+face2))
 
-multiplot(list(pfd_splines(gen_face(coef=face1)),pfd_splines(gen_face(coef=face2)),
+multiplot(list(pfd_splines(gen_face(coef=face1*distinctiveness)),
+               pfd_splines(gen_face(coef=face2*distinctiveness)),
                pfd_splines(delta_face1),pfd_splines(delta_face2)), nrow=2, ncol=2)
 
 
