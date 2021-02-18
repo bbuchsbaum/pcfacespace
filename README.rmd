@@ -62,12 +62,12 @@ antimorph <- function(x,y, degree=10) {
 }
 
 
-distinctiveness <- 10
+distinctiveness <- 6
 
-## generate 166 normally distributed principal component coefficients for face 1
-face1 <- normcoef(rnorm(57))
-## generate 166 normally distributed principal component coefficients for face 2
-face2 <- normcoef(rnorm(57))
+## generate 60 normally distributed principal component coefficients for face 1
+face1 <- normcoef(rnorm(60))
+## generate 60 normally distributed principal component coefficients for face 2
+face2 <- normcoef(rnorm(60))
 face2 <- orthogonalize(face1,face2)
 face2 <- normcoef(face2)
 
