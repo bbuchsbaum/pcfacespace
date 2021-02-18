@@ -9,6 +9,10 @@ pfd_pc_to_xy <- function(x) {
   data("pfd_data")
   avg_face2 <- pfd_data$avg_face[-c(37,44),]
 
+  if (length(x) < length(pfd_data$std_scores)) {
+    x <- c(x, rep(0, length(pfd_data$std_scores) - length(x)))
+  }
+
   x2 <- x * pfd_data$std_scores
   fd1 <- x2 %*% t(pfd_data$pc)
 
@@ -35,7 +39,7 @@ gen_face <- function(coef=NULL, fixed_pcs=0) {
   if (is.null(coef)) {
     coef <- rnorm(166)
   } else {
-    assert_that(length(coef) == 166)
+    assert_that(length(coef) <= 166)
   }
 
   if (fixed_pcs == 0) {

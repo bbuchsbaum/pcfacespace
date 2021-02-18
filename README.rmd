@@ -29,20 +29,56 @@ normcoef <- function(x, type="F") {
   x/norm(as.matrix(x), "F")
 }
 
+orthogonalize <- function(x,y) {
+  y2 = y - ((x %*% y)/(x %*% x))[1,1] * x
+}
+
+degtorad <- function(deg) {
+  rad <- pi/180 * deg
+  rad
+}
+
+radtodeg <- function(rad) {
+  rad * 180/pi
+}
+
+antimorph <- function(x,y, degree=10) {
+  x <- normcoef(x)
+  y <- normcoef(y)
+  
+  rad <- pi/180 * degree
+  b <- rad/degtorad(45)
+  delta <- x-y
+  delta <- normcoef(delta)
+  
+  #bvals = seq(0,1,by=.01)
+  #out <- sapply(bvals, function(b) {
+  #  acos(x %*% normcoef(delta*b + (1-b)*x))
+  #})
+  
+  normcoef(delta*b + (1-b)*x)
+
+}
+
 
 distinctiveness <- 10
 
-## generate 166 normally distributed princpal component coefficients for face 1
-face1 <- normcoef(rnorm(166))
-## generate 166 normally distributed princpal component coefficients for face 2
-face2 <- normcoef(rnorm(166))
+## generate 166 normally distributed principal component coefficients for face 1
+face1 <- normcoef(rnorm(57))
+## generate 166 normally distributed principal component coefficients for face 2
+face2 <- normcoef(rnorm(57))
+face2 <- orthogonalize(face1,face2)
+face2 <- normcoef(face2)
 
 ## create a "spline" representation of face1, face2, and the average of face1 and face2 (the morph).
 f1 <- pfd_splines(gen_face(coef=face1*distinctiveness))
 f2 <- pfd_splines(gen_face(coef=face2*distinctiveness))
 f3 <- pfd_splines(gen_face(coef=normcoef(face1+face2)*distinctiveness))
 
-multiplot(list(f1,f2,f3), nrow=1, ncol=3)
+grid.newpage()
+
+multiplot(list(f1,f3,f2), nrow=1, ncol=3)
+
 
 ```
 
@@ -50,55 +86,36 @@ multiplot(list(f1,f2,f3), nrow=1, ncol=3)
 
 ```{r}
 
+dval  <- 6
+## set number of components (all pcs > 60 will be set to zero)
+ncomp <- 60
+## generate `ncomp` normally distributed principal component coefficients for face 1
+face1 <- normcoef(rnorm(60)) 
+## generate `ncomp` normally distributed principal component coefficients for face 2
+face2 <- normcoef(rnorm(60))
 
-## generate 166 normally distributed princpal component coefficients for face 1
-face1 <- normcoef(rnorm(166)) 
-## generate 166 normally distributed princpal component coefficients for face 2
-face2 <- normcoef(rnorm(166))
+## make face1 and face2 orthogonal
+face2 <- orthogonalize(face1, face2)
+## renormalize
+face2 <- normcoef(face2)
+print(face1 %*% face2)
 
-## create a "face difference" vector
-delta <- face1 - face2
+## move face1 40 degrees away from face2
+antiface1 <- antimorph(face1, face2, degree=40)
+## move face2 40 degrees away from face1
+antiface2 <- antimorph(face2, face1, degree=40)
 
-## push the first face away from the second face by 1 difference units.
-delta_face1 = pcfacespace::gen_face(1.2*(distinctiveness) * normcoef(delta+face1))
-
-## push the second face away from the first face by 1 difference units (notice the sign reversal).
-delta_face2 = pcfacespace::gen_face(1.2*(distinctiveness) * normcoef(-delta+face2))
-
-multiplot(list(pfd_splines(gen_face(coef=face1*distinctiveness)),
-               pfd_splines(gen_face(coef=face2*distinctiveness)),
-               pfd_splines(delta_face1),pfd_splines(delta_face2)), nrow=2, ncol=2)
-
-
+grid.newpage()
+multiplot(list(pfd_splines(gen_face(coef=antiface1*dval)),
+               pfd_splines(gen_face(coef=face1*dval)),
+               pfd_splines(gen_face(coef=face2*dval)),
+               pfd_splines(gen_face(coef=antiface2*dval))),
+               nrow=1, ncol=4)
 
 
-```
-
-```{r}
-
-## push the first face away from the second face by .5 difference units.
-delta_face1 = pcfacespace::gen_face(.5*delta + face1)
-
-## push the second face away from the first face by .5 difference units (notice the sign reversal).
-delta_face2 = pcfacespace::gen_face(-.5*delta + face2)
-
-multiplot(list(pfd_splines(gen_face(coef=face1)),pfd_splines(gen_face(coef=face2)),
-               pfd_splines(delta_face1),pfd_splines(delta_face2)), nrow=2, ncol=2)
 
 ```
 
-```{r}
-
-## push the first face away from the second face by .3 difference units.
-delta_face1 = pcfacespace::gen_face(.3*delta + face1)
-
-## push the second face away from the first face by .3 difference units (notice the sign reversal).
-delta_face2 = pcfacespace::gen_face(-.3*delta + face2)
-
-multiplot(list(pfd_splines(gen_face(coef=face1)),pfd_splines(gen_face(coef=face2)),
-               pfd_splines(delta_face1),pfd_splines(delta_face2)), nrow=2, ncol=2)
-
-```
 
 
 ## References
