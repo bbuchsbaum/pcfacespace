@@ -4,6 +4,7 @@ output: github_document
 
 
 ```{r setup, include=FALSE}
+library(grid)
 knitr::opts_chunk$set(echo = TRUE, collapse=TRUE,comment = "#>")
 ```
 
