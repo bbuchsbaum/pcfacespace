@@ -61,7 +61,7 @@ antimorph <- function(x,y, degree=10) {
 }
 
 
-distinctiveness <- 6
+distinctiveness <- 7
 
 ## generate 60 normally distributed principal component coefficients for face 1
 face1 <- normcoef(rnorm(60))
@@ -85,7 +85,7 @@ multiplot(list(f1,f3,f2), nrow=1, ncol=3)
 ### Push two faces away from each other in PC-space using a “face difference”
 
 ``` r
-dval  <- 6
+dval  <- 7
 ## set number of components (all pcs > 60 will be set to zero)
 ncomp <- 60
 ## generate `ncomp` normally distributed principal component coefficients for face 1
@@ -98,8 +98,8 @@ face2 <- orthogonalize(face1, face2)
 ## renormalize
 face2 <- normcoef(face2)
 print(face1 %*% face2)
-#>              [,1]
-#> [1,] 1.734723e-17
+#>               [,1]
+#> [1,] -1.897354e-17
 
 ## move face1 40 degrees away from face2
 antiface1 <- antimorph(face1, face2, degree=40)

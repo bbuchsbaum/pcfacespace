@@ -62,7 +62,7 @@ antimorph <- function(x,y, degree=10) {
 }
 
 
-distinctiveness <- 6
+distinctiveness <- 7
 
 ## generate 60 normally distributed principal component coefficients for face 1
 face1 <- normcoef(rnorm(60))
@@ -87,7 +87,7 @@ multiplot(list(f1,f3,f2), nrow=1, ncol=3)
 
 ```{r}
 
-dval  <- 6
+dval  <- 7
 ## set number of components (all pcs > 60 will be set to zero)
 ncomp <- 60
 ## generate `ncomp` normally distributed principal component coefficients for face 1
