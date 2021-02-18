@@ -99,18 +99,18 @@ face2 <- orthogonalize(face1, face2)
 face2 <- normcoef(face2)
 print(face1 %*% face2)
 #>               [,1]
-#> [1,] -1.897354e-17
+#> [1,] -1.474515e-17
 
-## move face1 40 degrees away from face2
-antiface1 <- antimorph(face1, face2, degree=40)
-## move face2 40 degrees away from face1
-antiface2 <- antimorph(face2, face1, degree=40)
+## move face1 32 degrees away from face2
+antiface1 <- antimorph(face1, face2, degree=45)
+## move face2 32 degrees away from face1
+antiface2 <- antimorph(face2, face1, degree=45)
 
 grid.newpage()
-multiplot(list(pfd_splines(gen_face(coef=antiface1*dval)),
-               pfd_splines(gen_face(coef=face1*dval)),
-               pfd_splines(gen_face(coef=face2*dval)),
-               pfd_splines(gen_face(coef=antiface2*dval))),
+multiplot(list(pfd_splines(gen_face(coef=antiface1*dval, fixed_pcs=1)),
+               pfd_splines(gen_face(coef=face1*dval, fixed_pcs=1)),
+               pfd_splines(gen_face(coef=face2*dval, fixed_pcs=1)),
+               pfd_splines(gen_face(coef=antiface2*dval, fixed_pcs=1))),
                nrow=1, ncol=4)
 ```
 
